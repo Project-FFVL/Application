@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">app</string>
+    <string name="app_name">FFVL</string>
+    <string name="loading">Walking is boring, Flying is better !</string>
 </resources>
