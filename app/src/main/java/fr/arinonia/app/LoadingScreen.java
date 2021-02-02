@@ -26,15 +26,9 @@ public class LoadingScreen extends AppCompatActivity {
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        ProgressBar progressBar = (ProgressBar)findViewById(R.id.spin_kit);
+      /*ProgressBar progressBar = findViewById(R.id.spin_kit);
         Sprite doubleBounce = new DoubleBounce();
-        progressBar.setIndeterminateDrawable(doubleBounce);
-
-        TextView loadingLabel = (TextView)this.findViewById(R.id.loading);
-        loadingLabel.setTextColor(0xFFFFFFFF);
-        loadingLabel.setTextSize(42);
-
-
+        progressBar.setIndeterminateDrawable(doubleBounce);*/
     }
 
 }
