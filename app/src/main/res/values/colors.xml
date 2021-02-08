@@ -6,8 +6,13 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorLoading">#1976d2</color>
+    <color name="gray">#404040</color>
+    <color name="orange">#F19A47</color>
+    <color name="white">#FFFFFF</color>
+    <color name="btnPressed">#404040</color>
+    <color name="scrollpane">#424C4C</color>
+
 
 </resources>
