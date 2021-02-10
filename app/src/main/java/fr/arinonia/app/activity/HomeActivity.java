@@ -5,12 +5,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -34,7 +37,6 @@ public class HomeActivity extends AppCompatActivity {
         constraintLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.scrollpane));
 
 
-
         LinearLayout layout = this.findViewById(R.id.linear_layout);
 
         for (int i = 0; i < 10; i++) {
@@ -49,5 +51,18 @@ public class HomeActivity extends AppCompatActivity {
 
 
         }
+
+        MaterialButton otherBaliseBtn = this.findViewById(R.id.otherBaliseBtn);
+        otherBaliseBtn.setOnClickListener(e -> {
+            Intent intent = new Intent(this, MapsActivity.class);
+            startActivity(intent);
+        });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(HomeActivity.this,"There is no back action",Toast.LENGTH_LONG).show();
+        return;
     }
 }

@@ -11,8 +11,11 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.App">
-        <activity android:name=".activity.HomeActivity"></activity>
+        <activity android:name=".activity.DetailsActivity"/>
+        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.MapsActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -25,13 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MapsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
