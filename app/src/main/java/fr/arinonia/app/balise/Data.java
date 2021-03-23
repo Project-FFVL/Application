@@ -8,7 +8,7 @@ public class Data {
     private List<Balise> balises = new ArrayList<Balise>();
 
     public List<Balise> getBalises() {
-        return balises;
+        return this.balises;
     }
 
     public void setBalises(List<Balise> balises) {

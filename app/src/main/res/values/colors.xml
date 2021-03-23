@@ -13,6 +13,8 @@
     <color name="white">#FFFFFF</color>
     <color name="btnPressed">#404040</color>
     <color name="scrollpane">#424C4C</color>
-
+    <color name="transparent">#00000000</color>
+    <color name="link">#6EDAC4</color>
+    <color name="hint">#BABABA</color>
 
 </resources>

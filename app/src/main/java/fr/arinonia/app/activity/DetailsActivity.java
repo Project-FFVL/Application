@@ -9,6 +9,7 @@ import fr.arinonia.app.R;
 
 public class DetailsActivity extends AppCompatActivity {
 
+
     private int id;
     private int pressiure;
     private int wind_speed;
@@ -25,7 +26,7 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.details_activity);
+        this.setContentView(R.layout.details_activity);
 
         if (this.getSupportActionBar() != null) {
             this.getSupportActionBar().hide();
@@ -44,54 +45,19 @@ public class DetailsActivity extends AppCompatActivity {
         this.hygrometry = bundle.getInt("hygrometry");
 
         System.out.println(this.toString());
-
-
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getPressiure() {
-        return pressiure;
-    }
-
-    public int getWind_speed() {
-        return wind_speed;
-    }
-
-    public int getWind_direction() {
-        return wind_direction;
-    }
-
-    public int getWind_min() {
-        return wind_min;
-    }
-
-    public int getWind_max() {
-        return wind_max;
-    }
-
-    public int getTemperature() {
-        return temperature;
-    }
-
-    public int getHygrometry() {
-        return hygrometry;
     }
 
     @Override
     public String toString() {
         return "DetailsActivity{" +
-                "id=" + id +
-                ", pressiure=" + pressiure +
-                ", wind_speed=" + wind_speed +
-                ", wind_direction=" + wind_direction +
-                ", wind_min=" + wind_min +
-                ", wind_max=" + wind_max +
-                ", temperature=" + temperature +
-                ", hygrometry=" + hygrometry +
+                "id=" + this.id +
+                ", pressiure=" + this.pressiure +
+                ", wind_speed=" + this.wind_speed +
+                ", wind_direction=" + this.wind_direction +
+                ", wind_min=" + this.wind_min +
+                ", wind_max=" + this.wind_max +
+                ", temperature=" + this.temperature +
+                ", hygrometry=" + this.hygrometry +
                 '}';
     }
 }

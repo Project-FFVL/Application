@@ -2,8 +2,11 @@ package fr.arinonia.app.activity;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,8 +21,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
 
 import fr.arinonia.app.R;
 import fr.arinonia.app.balise.Balise;
@@ -35,8 +36,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -57,10 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             intent.putExtra("wind_max", balise.getWind_max());
             intent.putExtra("temperature", balise.getTemperature());
             intent.putExtra("hygrometry", balise.getHygrometry());
-
-
-
-            startActivity(intent);
+            this.startActivity(intent);
             return false;
         });
         this.mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(49.43760170457457, 1.095723344298659)));
@@ -84,13 +81,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (data != null) {
             for (Balise balise : data.getBalises()) {
                 if (balise != null) {
-                    this.runOnUiThread(() -> {
-                        Marker mrk = balise.isState() ?  mMap.addMarker(new MarkerOptions().position(new LatLng(balise.getLatitude(), balise.getLongitude()))) : null;
-                        assert mrk != null;
-                        mrk.setTag(balise);
-                    });
+                    if (balise.isState()) {
+                        this.runOnUiThread(() -> {
+                            Marker mrk = balise.isState() ?  mMap.addMarker(new MarkerOptions().position(new LatLng(balise.getLatitude(), balise.getLongitude()))) : null;
+                            assert mrk != null;
+                            mrk.setTag(balise);
+                        });
+                    }
                 }
             }
+        } else {
+           this.runOnUiThread(() ->  {
+               AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+               alertDialogBuilder.setTitle("Erreur de chargement des balises");
+               alertDialogBuilder
+                       .setMessage("Verifiez votre connexion\nRessayer")
+                       .setCancelable(false)
+                       .setPositiveButton("Oui", (dialog, id) -> MapsActivity.this.finish())
+                       .setNegativeButton("Non", (dialog, id) -> dialog.cancel());
+               AlertDialog alertDialog = alertDialogBuilder.create();
+               alertDialog.show();
+           });
         }
     }
 
@@ -113,6 +124,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
             bufferedReader.close();
         } catch(Exception e) {
+            this.runOnUiThread(() ->  {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle("Une erreur est survenue");
+                alertDialogBuilder
+                        .setMessage("Impossible de comuniquer avec " + e.getMessage())
+                        .setCancelable(false)
+                        .setPositiveButton("Oui", (dialog, id) -> MapsActivity.this.finish())
+                        .setNegativeButton("Non", (dialog, id) -> dialog.cancel());
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            });
             e.printStackTrace();
         }
         return content.toString();

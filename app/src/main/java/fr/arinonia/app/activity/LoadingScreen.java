@@ -14,7 +14,8 @@ import fr.arinonia.app.R;
 
 public class LoadingScreen extends AppCompatActivity {
 
-
+    private final boolean DEV_ENV = true;
+    private boolean isLogin = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +30,17 @@ public class LoadingScreen extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        Intent myIntent = new Intent(this, HomeActivity.class);
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        Intent homeIntent = new Intent(this, HomeActivity.class);
 
-
+        /*  TODO
+            ping google maps API
+            ping FFVL API
+            if some api doesn't reply, display an error message
+            check if user is login
+            if is login, go to HomePanel
+            if is not login, go to LoginPanel
+         */
         new CountDownTimer(3000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -40,7 +49,7 @@ public class LoadingScreen extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                startActivity(myIntent);
+                startActivity(isLogin ? homeIntent : loginIntent);
             }
         }.start();
     }
@@ -49,6 +58,5 @@ public class LoadingScreen extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Toast.makeText(LoadingScreen.this,"There is no back action",Toast.LENGTH_LONG).show();
-        return;
     }
 }

@@ -41,28 +41,27 @@ public class HomeActivity extends AppCompatActivity {
 
         for (int i = 0; i < 10; i++) {
             MaterialButton btn = new MaterialButton(this);
-
             btn.setText("Balise " + i);
             btn.setStrokeColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.orange)));
             btn.setBackgroundColor(ContextCompat.getColor(this, R.color.gray));
             btn.setCornerRadius(0);
             btn.setStrokeWidth(1);
+            btn.setOnClickListener(e -> {
+                Toast.makeText(HomeActivity.this,"Display Balise", Toast.LENGTH_LONG).show();
+            });
             layout.addView(btn);
-
-
         }
 
         MaterialButton otherBaliseBtn = this.findViewById(R.id.otherBaliseBtn);
         otherBaliseBtn.setOnClickListener(e -> {
             Intent intent = new Intent(this, MapsActivity.class);
-            startActivity(intent);
+            this.startActivity(intent);
         });
     }
 
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(HomeActivity.this,"There is no back action",Toast.LENGTH_LONG).show();
-        return;
+        Toast.makeText(HomeActivity.this,"There is no back action", Toast.LENGTH_LONG).show();
     }
 }
