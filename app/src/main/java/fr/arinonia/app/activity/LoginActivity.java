@@ -1,11 +1,17 @@
 package fr.arinonia.app.activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,28 +28,43 @@ public class LoginActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
 
+        Window window = this.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(Color.parseColor("#686868"));
+            window.setNavigationBarColor(Color.parseColor("#1e1e1e"));
+        }
+
         TextView createAccount = (TextView)findViewById(R.id.createAccount);
         createAccount.setOnClickListener(this::setupListeners);
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void setupListeners(View view) {
+        Intent registerIntent = new Intent(this, RegisterActivity.class);
+        Intent homeIntent = new Intent(this, RegisterActivity.class);
+
         switch (view.getId()) {
-            case R.id.createAccount:
-                Intent registerIntent = new Intent(this, RegisterActivity.class);
+            case R.id.createAccount :
                 this.startActivity(registerIntent);
+                break;
+
+            case R.id.forgotPassword :
+
+                break;
+
+            case R.id.button :
+                EditText emailField = this.findViewById(R.id.inputEmail);
+                EditText passwordField = this.findViewById(R.id.inputPassword);
+
+                if (emailField.getText().toString().isEmpty()) {
+                    System.out.println("pas bo");
+                }
+                System.out.println(emailField.getText().toString());
+                this.startActivity(homeIntent);
                 break;
         }
     }
-    /*private void onCreateAccountClicked(View view) {
-        if (view.getId() == R.id.createAccount) {
-
-        }
-        Toast.makeText(LoginActivity.this,"Tu as cliqué sur créer un compte", Toast.LENGTH_LONG).show();
-
-    }*/
     @Override
-    public void onBackPressed() {
-        Toast.makeText(LoginActivity.this,"There is no back action",Toast.LENGTH_LONG).show();
-    }
+    public void onBackPressed() {}
 }

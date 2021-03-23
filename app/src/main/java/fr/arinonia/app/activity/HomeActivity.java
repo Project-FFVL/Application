@@ -7,12 +7,16 @@ import androidx.core.content.ContextCompat;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -31,6 +35,12 @@ public class HomeActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
 
+        Window window = this.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(Color.parseColor("#686868"));
+            window.setNavigationBarColor(Color.parseColor("#1e1e1e"));
+        }
+
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         ConstraintLayout constraintLayout = this.findViewById(R.id.constraint_layout);
@@ -38,7 +48,13 @@ public class HomeActivity extends AppCompatActivity {
 
 
         LinearLayout layout = this.findViewById(R.id.linear_layout);
+        ScrollView scrollView = this.findViewById(R.id.scrollbar);
 
+        scrollView.setSmoothScrollingEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            scrollView.setBottomEdgeEffectColor(Color.parseColor("#1e1e1e"));
+            scrollView.setTopEdgeEffectColor(Color.parseColor("#1e1e1e"));
+        }
         for (int i = 0; i < 10; i++) {
             MaterialButton btn = new MaterialButton(this);
             btn.setText("Balise " + i);
@@ -61,7 +77,5 @@ public class HomeActivity extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed() {
-        Toast.makeText(HomeActivity.this,"There is no back action", Toast.LENGTH_LONG).show();
-    }
+    public void onBackPressed() {}
 }

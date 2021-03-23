@@ -2,7 +2,10 @@ package fr.arinonia.app.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Window;
 import android.view.WindowManager;
 
 import fr.arinonia.app.R;
@@ -32,7 +35,14 @@ public class DetailsActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
 
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Window window = this.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(Color.parseColor("#686868"));
+            window.setNavigationBarColor(Color.parseColor("#1e1e1e"));
+        }
+
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Bundle bundle = this.getIntent().getExtras();
         this.id = bundle.getInt("id");
