@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,8 @@ public class LoginActivity extends AppCompatActivity {
 
         TextView createAccount = (TextView)findViewById(R.id.createAccount);
         createAccount.setOnClickListener(this::setupListeners);
-
+        Button buttonLogin = this.findViewById(R.id.button);
+        buttonLogin.setOnClickListener(this::setupListeners);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -58,7 +60,12 @@ public class LoginActivity extends AppCompatActivity {
                 EditText passwordField = this.findViewById(R.id.inputPassword);
 
                 if (emailField.getText().toString().isEmpty()) {
-                    System.out.println("pas bo");
+                    Toast.makeText(this, "Merci d'entrer un email !", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (passwordField.getText().toString().isEmpty()) {
+                    Toast.makeText(this, "Merci d'entrer un mot de passe !", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 System.out.println(emailField.getText().toString());
                 this.startActivity(homeIntent);

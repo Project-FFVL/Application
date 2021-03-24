@@ -2,7 +2,7 @@ package fr.arinonia.app.utils;
 
 public class Constants {
 
-    public static final String API_URL = "http://arinonia.ovh/response.json";
+    public static final String API_URL = "http://arinonia.chaun14.fr/api/response.json";
 
     public static final String URL_SERVER = "http://arinonia.ovh/reponse.json";
     public static final String RESSOURCE_BAlISE = "/balises";
