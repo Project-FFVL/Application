@@ -15,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -58,16 +59,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Balise balise = (Balise)e.getTag();
 
             Intent intent = new Intent(this, DetailsActivity.class);
-            assert balise != null;
-            intent.putExtra("id", balise.getId());
-            intent.putExtra("pressiure", balise.getPressiure());
-            intent.putExtra("wind_speed", balise.getWind_speed());
-            intent.putExtra("wind_direction", balise.getWind_direction());
-            intent.putExtra("wind_min", balise.getWind_min());
-            intent.putExtra("wind_max", balise.getWind_max());
-            intent.putExtra("temperature", balise.getTemperature());
-            intent.putExtra("hygrometry", balise.getHygrometry());
-            this.startActivity(intent);
+             if (balise != null) {
+                 if (balise.isState()) {
+                     intent.putExtra("id", balise.getId());
+                     this.startActivity(intent);
+                 } else {
+                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                     alertDialogBuilder.setTitle("La balise est inactive");
+                     alertDialogBuilder
+                             .setMessage("Cette balise est\ntemporairement désactivée")
+                             .setCancelable(false)
+                             .setPositiveButton("Ok", (dialog, id) -> dialog.cancel());
+                     AlertDialog alertDialog = alertDialogBuilder.create();
+                     alertDialog.show();
+                 }
+             } else {
+                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                 alertDialogBuilder.setTitle("Une erreur est survenue");
+                 alertDialogBuilder
+                         .setMessage("Balise == null")
+                         .setCancelable(false)
+                         .setPositiveButton("Ok", (dialog, id) -> dialog.cancel());
+                 AlertDialog alertDialog = alertDialogBuilder.create();
+                 alertDialog.show();
+             }
+
             return false;
         });
         this.mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(49.43760170457457, 1.095723344298659)));
@@ -93,7 +109,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (balise != null) {
                     if (balise.isState()) {
                         this.runOnUiThread(() -> {
-                            Marker mrk = balise.isState() ?  mMap.addMarker(new MarkerOptions().position(new LatLng(balise.getLatitude(), balise.getLongitude()))) : null;
+                            Marker mrk = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).position(new LatLng(balise.getLatitude(), balise.getLongitude())));
+                            assert mrk != null;
+                            mrk.setTag(balise);
+                        });
+                    } else {
+                        this.runOnUiThread(() -> {
+                            Marker mrk = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(new LatLng(balise.getLatitude(), balise.getLongitude())));
                             assert mrk != null;
                             mrk.setTag(balise);
                         });

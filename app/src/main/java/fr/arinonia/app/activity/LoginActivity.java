@@ -1,9 +1,9 @@
 package fr.arinonia.app.activity;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import fr.arinonia.app.R;
+import fr.arinonia.app.utils.Constants;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,27 +36,31 @@ public class LoginActivity extends AppCompatActivity {
             window.setNavigationBarColor(Color.parseColor("#1e1e1e"));
         }
 
-        TextView createAccount = (TextView)findViewById(R.id.createAccount);
+        TextView createAccount = (TextView) findViewById(R.id.createAccount);
         createAccount.setOnClickListener(this::setupListeners);
         Button buttonLogin = this.findViewById(R.id.button);
         buttonLogin.setOnClickListener(this::setupListeners);
+        TextView forgotPassword = (TextView) findViewById(R.id.forgotPassword);
+        forgotPassword.setOnClickListener(this::setupListeners);
     }
 
     @SuppressLint("NonConstantResourceId")
     private void setupListeners(View view) {
         Intent registerIntent = new Intent(this, RegisterActivity.class);
-        Intent homeIntent = new Intent(this, RegisterActivity.class);
+        Intent homeIntent = new Intent(this, HomeActivity.class);
 
         switch (view.getId()) {
-            case R.id.createAccount :
+            case R.id.createAccount:
                 this.startActivity(registerIntent);
                 break;
 
-            case R.id.forgotPassword :
+            case R.id.forgotPassword:
+                    if (Constants.DEBUG) {
 
+                    }
                 break;
 
-            case R.id.button :
+            case R.id.button:
                 EditText emailField = this.findViewById(R.id.inputEmail);
                 EditText passwordField = this.findViewById(R.id.inputPassword);
 
@@ -64,7 +69,15 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 if (passwordField.getText().toString().isEmpty()) {
-                    Toast.makeText(this, "Merci d'entrer un mot de passe !", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "Merci d'entrer un mot de passe !", Toast.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(this)
+                            .setTitle("Erreur de connexion")
+                            .setMessage("Veuillez entrer un mot de passe !")
+                            .setPositiveButton("Pardon:c", (dialog, which) -> {
+
+                            })
+                            .setIcon(android.R.drawable.stat_notify_error)
+                            .show();
                     return;
                 }
                 System.out.println(emailField.getText().toString());
@@ -72,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
+
     @Override
     public void onBackPressed() {}
 }

@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">arinonia.chaun14.fr</domain>
         <domain includeSubdomains="true">arinonia.ovh</domain>
+        <domain includeSubdomains="true">195.133.81.183</domain>
     </domain-config>
 </network-security-config>

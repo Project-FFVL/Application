@@ -12,6 +12,8 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class RegisterUsername extends AsyncTask<String, Void, String> {
 
+    private transient String str;
+
     @Override
     protected String doInBackground(String... strings) {
         /*try {
