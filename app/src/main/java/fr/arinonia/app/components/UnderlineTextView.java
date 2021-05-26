@@ -8,12 +8,6 @@ import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Justin
- * Date: 9/11/13
- * Time: 1:10 AM
- */
 public class UnderlineTextView extends androidx.appcompat.widget.AppCompatTextView {
     private boolean m_modifyingText = false;
 
@@ -60,7 +54,7 @@ public class UnderlineTextView extends androidx.appcompat.widget.AppCompatTextVi
 
         SpannableString content = new SpannableString(getText());
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        setText(content);
+        this.setText(content);
 
         this.m_modifyingText = false;
     }

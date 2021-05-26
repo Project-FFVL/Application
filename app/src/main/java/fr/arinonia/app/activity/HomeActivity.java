@@ -58,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = 0; i < 10; i++) {
             MaterialButton btn = new MaterialButton(this);
             btn.setText("Balise " + i);
+            btn.setTextColor(Color.WHITE);
             btn.setStrokeColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.orange)));
             btn.setBackgroundColor(ContextCompat.getColor(this, R.color.gray));
             btn.setCornerRadius(0);
@@ -76,6 +77,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Retire la possibilité de revenir en arrière
+     */
     @Override
     public void onBackPressed() {}
 }

@@ -55,9 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
 
             case R.id.forgotPassword:
-                    if (Constants.DEBUG) {
 
-                    }
                 break;
 
             case R.id.button:

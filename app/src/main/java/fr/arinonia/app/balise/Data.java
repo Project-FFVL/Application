@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Data {
 
-    private List<Balise> balises = new ArrayList<Balise>();
+    private List<Balises> balises = new ArrayList<Balises>();
 
-    public List<Balise> getBalises() {
+    public List<Balises> getBalises() {
         return this.balises;
     }
 
-    public void setBalises(List<Balise> balises) {
+    public void setBalises(List<Balises> balises) {
         this.balises = balises;
     }
 }

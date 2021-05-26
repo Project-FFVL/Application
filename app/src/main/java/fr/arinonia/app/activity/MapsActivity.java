@@ -3,13 +3,11 @@ package fr.arinonia.app.activity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,11 +25,12 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import fr.arinonia.app.R;
-import fr.arinonia.app.balise.Balise;
+import fr.arinonia.app.balise.Balises;
 import fr.arinonia.app.balise.Data;
 import fr.arinonia.app.utils.Constants;
+import fr.arinonia.app.utils.IJsonReadable;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, IJsonReadable {
 
     private GoogleMap mMap;
     private static final Gson JSON = new Gson();
@@ -56,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.mMap = googleMap;
 
         this.mMap.setOnMarkerClickListener(e -> {
-            Balise balise = (Balise)e.getTag();
+            Balises balise = (Balises)e.getTag();
 
             Intent intent = new Intent(this, DetailsActivity.class);
              if (balise != null) {
@@ -101,11 +100,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * add all markers from balises in the json
      */
-    private void jsonDeserialize() {
+    @Override
+    public void jsonDeserialize() {
         Data data = JSON.fromJson(this.getUrlContents(Constants.API_URL), Data.class);
 
         if (data != null) {
-            for (Balise balise : data.getBalises()) {
+            for (Balises balise : data.getBalises()) {
                 if (balise != null) {
                     if (balise.isState()) {
                         this.runOnUiThread(() -> {
@@ -142,7 +142,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param theUrl String
      * @return String : content of web page
      */
-    private String getUrlContents(String theUrl) {
+    @Override
+    public String getUrlContents(String theUrl) {
         StringBuilder content = new StringBuilder();
 
         try {
